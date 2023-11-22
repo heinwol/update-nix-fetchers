@@ -6,7 +6,7 @@ use tree_sitter::{self, Node, QueryMatches};
 use tree_sitter_graph;
 use tree_sitter_nix;
 
-fn move_node_by_list<'a>(node: &'a Node, idxs: &[usize]) -> Node<'a> {
+fn move_node_by_list<'a>(node: &Node<'a>, idxs: &[usize]) -> Node<'a> {
     return idxs
         .into_iter()
         .fold(*node, (|n, i| (n.child(*i).unwrap())));
@@ -28,11 +28,11 @@ fn main() {
             .unwrap();
     tree.print_dot_graph(&f);
     let cursor = tree.walk();
-    // let exp = move_node_by_list(&cursor.node(), &[0, 2, 1, 0, 2, 1, 0, 0, 0]).to_sexp();
+    // let exp = move_node_by_list(&cursor.node(), &[0, 2, 1, 0, 2, 1, 0, 0, 0]);
     let top = &cursor.node();
 
     // that's literal "source_plugin"
-    let exp = move_node_by_list(top, &[0, 1]);
+    let exp = move_node_by_list(top, &[0]);
     // let it = exp.field_name_for_child(0).unwrap();
 
     let q = tree_sitter::Query::new(lang, "((identifier) @start (#eq? @start \"x\"))").unwrap();
