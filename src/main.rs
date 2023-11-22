@@ -1,11 +1,8 @@
 #![allow(unused)]
 
-use std::fs;
-use std::io;
+use std::{fs, io};
 
-use tree_sitter;
-use tree_sitter::Node;
-use tree_sitter::QueryMatches;
+use tree_sitter::{self, Node, QueryMatches};
 use tree_sitter_graph;
 use tree_sitter_nix;
 
